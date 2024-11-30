@@ -83,8 +83,7 @@ const UpdateModal: React.FC<ModalType> = ({ open, setOpen, id }) => {
                             setCourseId('all');
                             toast.success("Shartnoma Tahrirlandi!");
                         },
-                        onError: (error: Error) => {
-                            if (error.status == 400)
+                        onError: () => {
                                 toast.error("Takrorlangan malumot");
                         }
                     })
@@ -110,12 +109,8 @@ const UpdateModal: React.FC<ModalType> = ({ open, setOpen, id }) => {
                         setCourseId('all');
                         toast.success("Shartnoma Tahrirlandi!");
                     },
-                    onError: (error: Error) => {
-                        if (error?.status === 400) {
+                    onError: () => {
                             toast.error("Takrorlangan malumot");
-                        } else {
-                            toast.error("Xatolik yuz berdi!");
-                        }
                     },
                 }
             );

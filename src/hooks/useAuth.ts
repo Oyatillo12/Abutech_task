@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query"
-import { login } from "../api/auth"
-import { LoginType } from "../page/LoginPage"
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../api/auth";
+import { LoginType } from "../types";
 import { LoginResponse } from "../types";
 
 export const useLoginMutation = () => {
@@ -10,4 +10,4 @@ export const useLoginMutation = () => {
             localStorage.setItem('token', res.data.accessToken);
         }
     });
-  };
+};

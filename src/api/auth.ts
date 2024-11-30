@@ -1,6 +1,6 @@
-import { LoginResponse } from "../hooks/useAuth";
+import { LoginResponse } from "../types";
 import { useAxios } from "../hooks/useAxios";
-import { LoginType } from "../page/LoginPage";
+import { LoginType } from "../types"; 
 
 
 export const login = async (data?: LoginType):Promise<LoginResponse> => {
