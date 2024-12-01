@@ -54,11 +54,19 @@ const UpdateModal: React.FC<ModalType> = ({ open, setOpen, id }) => {
     }, [JSON.stringify(contractData), id])
 
     // get file
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files[0]) {
-            setFile(e.target.files[0]);
+        function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+            if (e.target.files && e.target.files.length) {
+                const allowedFileType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; 
+                const allowedExtension = ".docx";
+                const selectedFile = e.target.files[0];
+    
+                if (selectedFile.type !== allowedFileType && !selectedFile.name.endsWith(allowedExtension)) {
+                    toast.error("Faqat .docx formatdagi faylni yuklang!");
+                    return;
+                }
+                setFile(selectedFile);
+            }
         }
-    };
 
     // edit function start
     function handleUpadate(e: React.MouseEvent<HTMLFormElement>) {

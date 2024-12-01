@@ -20,9 +20,6 @@ export const useCoursesQuery = (params: GetContractsParamsType) => {
 export const useUploadFileMutation = () => {
     return useMutation({
         mutationFn: (file: File | undefined | AttachmentType) => uploadFile(file),
-        onSuccess: (data) => {
-            console.log("File uploaded successfully", data);
-        }
     });
 }
 

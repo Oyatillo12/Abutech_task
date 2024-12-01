@@ -16,7 +16,7 @@ const CustomModal: React.FC<ModalType> = ({ open, setOpen }) => {
     const [file, setFile] = useState<FileList | null>(null)
     const [title, setTitle] = useState<string>('');
     const [courseId, setCourseId] = useState<number | string>('');
-    
+
     // contract and courses query and mutation
     const { data: coursesData = [], } = useCoursesQuery({ page: 1, perPage: 3 });
     const uploadFileMutattion = useUploadFileMutation();
@@ -36,6 +36,20 @@ const CustomModal: React.FC<ModalType> = ({ open, setOpen }) => {
         }
     }, [JSON.stringify(coursesData)]);
     // set courses data end
+
+    function handleChangeFile(e: React.ChangeEvent<HTMLInputElement>) {
+        if (e.target.files && e.target.files.length) {
+            const allowedFileType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; 
+            const allowedExtension = ".docx";
+            const selectedFile = e.target.files[0];
+
+            if (selectedFile.type !== allowedFileType && !selectedFile.name.endsWith(allowedExtension)) {
+                toast.error("Faqat .docx formatdagi faylni yuklang!");
+                return;
+            }
+            setFile(e.target.files);
+        }
+    }
 
     // add contract
     function handleAddSubmit(e: React.MouseEvent<HTMLFormElement>) {
@@ -97,7 +111,7 @@ const CustomModal: React.FC<ModalType> = ({ open, setOpen }) => {
                     <label className={`flex py-[13px] relative !border-[1px] border-dashed rounded-lg !border-[#E3E3E3] items-center justify-center w-full space-x-4 text-[14px] leading-[18px] text-[#0EB182]`} htmlFor="file">
                         {file ? null : <FileIcon />}
                         <span>{file ? file[0]?.name : "Fayl biriktiring"}</span>
-                        {file ? null : <input onChange={(e) => setFile(e.target.files)} accept='.docx' id='file' className='hidden' required type="file" />}
+                        {file ? null : <input onChange={handleChangeFile} accept='.docx' id='file' className='hidden' required type="file" />}
                     </label>
                     {file ? <Button onClick={() => setFile(null)} type='dashed' htmlType='button' className='z-50 absolute right-[30px] bottom-[96px] my-auto !text-[#FC7857] p-1 rounded-md !bg-[#F7F8F9]'><DeleteOutlined /></Button> : null}
                     <div className='flex items-center justify-end gap-5'>
